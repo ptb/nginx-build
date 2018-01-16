@@ -43,6 +43,14 @@ apt-get update && apt-get -y install \
   binutils \
   build-essential \
   curl \
+  apache2-utils \
+  ca-certificates \
+  dirmngr \
+  git \
+  gnupg \
+  libcurl4-openssl-dev \
+  libxslt1-dev \
+  libxml2 \
   libssl-dev
 
 # Download the source files
@@ -80,6 +88,32 @@ rm -r \
   OPENSSL.tar.gz \
   NGINX.tar.gz
 cd ../
+
+git clone --depth 1 https://github.com/simpl/ngx_devel_kit.git ./build/$VERSION_NGINX/src/devel-kit
+git clone --depth 1 https://github.com/openresty/array-var-nginx-module.git ./build/$VERSION_NGINX/src/array-var
+git clone --depth 1 https://github.com/samizdatco/nginx-http-auth-digest.git ./build/$VERSION_NGINX/src/auth-digest
+git clone --depth 1 https://github.com/sto/ngx_http_auth_pam_module.git ./build/$VERSION_NGINX/src/auth-pam
+git clone --depth 1 https://github.com/ideal/ngx_http_auto_keepalive.git ./build/$VERSION_NGINX/src/auto-keepalive
+git clone --depth 1 https://github.com/DvdKhl/ngx_http_autols_module.git ./build/$VERSION_NGINX/src/autols
+git clone --depth 1 https://github.com/arut/nginx-dav-ext-module.git ./build/$VERSION_NGINX/src/dav-ext
+git clone --depth 1 https://github.com/aperezdc/ngx-fancyindex.git ./build/$VERSION_NGINX/src/fancyindex
+git clone --depth 1 https://github.com/openresty/headers-more-nginx-module.git ./build/$VERSION_NGINX/src/headers-more
+git clone --depth 1 https://github.com/cfsego/ngx_log_if.git ./build/$VERSION_NGINX/src/log-if
+mkdir -p ./build/$VERSION_NGINX/src/mp4-h264 && curl --compressed --location --silent \
+  http://h264.code-shop.com/download/nginx_mod_h264_streaming-2.2.7.tar.gz | \
+  tar -C ./build/$VERSION_NGINX/src/mp4-h264 --strip-components 1 -xzf -
+git clone --depth 1 https://github.com/nbs-system/naxsi.git ./build/$VERSION_NGINX/src/naxsi
+git clone --depth 1 https://github.com/slact/nchan.git ./build/$VERSION_NGINX/src/nchan
+git clone --depth 1 https://github.com/kr/nginx-notice.git ./build/$VERSION_NGINX/src/notice
+git clone --depth 1 https://github.com/wandenberg/nginx-push-stream-module.git ./build/$VERSION_NGINX/src/push-stream
+git clone --depth 1 https://github.com/sergey-dryabzhinsky/nginx-rtmp-module.git ./build/$VERSION_NGINX/src/rtmp
+git clone --depth 1 https://github.com/openresty/set-misc-nginx-module.git ./build/$VERSION_NGINX/src/set-misc
+git clone --depth 1 https://github.com/yaoweibin/ngx_http_substitutions_filter_module.git ./build/$VERSION_NGINX/src/subs-filter
+git clone -b "2.255" --depth 1 --single-branch https://github.com/vkholodkov/nginx-upload-module.git ./build/$VERSION_NGINX/src/upload
+git clone --depth 1 https://github.com/masterzen/nginx-upload-progress-module.git ./build/$VERSION_NGINX/src/upload-progress
+git clone --depth 1 https://github.com/kaltura/nginx-vod-module.git ./build/$VERSION_NGINX/src/vod
+git clone --depth 1 https://github.com/tg123/websockify-nginx-module.git ./build/$VERSION_NGINX/src/websockify
+git clone --depth 1 https://github.com/yoreek/nginx-xsltproc-module.git ./build/$VERSION_NGINX/src/xsltproc
 
 # Rename the existing /etc/nginx directory so it's saved as a back-up
 if [ -d "/etc/nginx" ]; then
@@ -148,13 +182,36 @@ cd $BPATH/$VERSION_NGINX
 --with-stream \
 --with-stream_ssl_module \
 --with-threads \
---without-http_empty_gif_module \
---without-http_geo_module \
---without-http_split_clients_module \
---without-http_ssi_module \
---without-mail_imap_module \
---without-mail_pop3_module \
---without-mail_smtp_module
+--with-debug \
+--with-http_dav_module \
+--with-http_xslt_module \
+--with-mail \
+--with-mail_ssl_module \
+--with-stream_ssl_preread_module \
+--add-module=./src/devel-kit \
+--add-module=./src/array-var \
+--add-module=./src/auth-digest \
+--add-module=./src/auth-pam \
+--add-module=./src/auto-keepalive \
+--add-module=./src/autols/ngx_http_autols_module \
+--add-module=./src/dav-ext \
+--add-module=./src/fancyindex \
+--add-module=./src/headers-more \
+--add-module=./src/log-if \
+--add-module=./src/mp4-h264 \
+--add-module=./src/naxsi/naxsi_src \
+--add-module=./src/nchan \
+--add-module=./src/notice \
+--add-module=./src/push-stream \
+--add-module=./src/rtmp \
+--add-module=./src/set-misc \
+--add-module=./src/subs-filter \
+--add-module=./src/upload \
+--add-module=./src/upload-progress \
+--add-module=./src/vod \
+--add-module=./src/websockify \
+--add-module=./src/xsltproc
+
 make
 make install
 make clean
