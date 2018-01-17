@@ -93,7 +93,6 @@ git clone --depth 1 https://github.com/simpl/ngx_devel_kit.git ./build/$VERSION_
 git clone --depth 1 https://github.com/openresty/array-var-nginx-module.git ./build/$VERSION_NGINX/src/array-var
 git clone --depth 1 https://github.com/samizdatco/nginx-http-auth-digest.git ./build/$VERSION_NGINX/src/auth-digest
 git clone --depth 1 https://github.com/ideal/ngx_http_auto_keepalive.git ./build/$VERSION_NGINX/src/auto-keepalive
-git clone --depth 1 https://github.com/DvdKhl/ngx_http_autols_module.git ./build/$VERSION_NGINX/src/autols
 git clone --depth 1 https://github.com/arut/nginx-dav-ext-module.git ./build/$VERSION_NGINX/src/dav-ext
 git clone --depth 1 https://github.com/aperezdc/ngx-fancyindex.git ./build/$VERSION_NGINX/src/fancyindex
 git clone --depth 1 https://github.com/openresty/headers-more-nginx-module.git ./build/$VERSION_NGINX/src/headers-more
@@ -191,7 +190,6 @@ cd $BPATH/$VERSION_NGINX
 --add-module=./src/array-var \
 --add-module=./src/auth-digest \
 --add-module=./src/auto-keepalive \
---add-module=./src/autols/ngx_http_autols_module \
 --add-module=./src/dav-ext \
 --add-module=./src/fancyindex \
 --add-module=./src/headers-more \
