@@ -102,7 +102,6 @@ mkdir -p ./build/$VERSION_NGINX/src/mp4-h264 && curl --compressed --location --s
   tar -C ./build/$VERSION_NGINX/src/mp4-h264 --strip-components 1 -xzf -
 git clone --depth 1 https://github.com/nbs-system/naxsi.git ./build/$VERSION_NGINX/src/naxsi
 git clone --depth 1 https://github.com/slact/nchan.git ./build/$VERSION_NGINX/src/nchan
-git clone --depth 1 https://github.com/kr/nginx-notice.git ./build/$VERSION_NGINX/src/notice
 git clone --depth 1 https://github.com/wandenberg/nginx-push-stream-module.git ./build/$VERSION_NGINX/src/push-stream
 git clone --depth 1 https://github.com/sergey-dryabzhinsky/nginx-rtmp-module.git ./build/$VERSION_NGINX/src/rtmp
 git clone --depth 1 https://github.com/openresty/set-misc-nginx-module.git ./build/$VERSION_NGINX/src/set-misc
@@ -214,7 +213,6 @@ cd $BPATH/$VERSION_NGINX
 --add-module=./src/mp4-h264 \
 --add-module=./src/naxsi/naxsi_src \
 --add-module=./src/nchan \
---add-module=./src/notice \
 --add-module=./src/push-stream \
 --add-module=./src/rtmp \
 --add-module=./src/set-misc \
