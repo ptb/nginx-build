@@ -116,22 +116,37 @@ git clone --depth 1 https://github.com/yoreek/nginx-xsltproc-module.git ./build/
 cd build/$VERSION_NGINX && patch -p0 << EOF
 --- auto/cc/clang
 +++ auto/cc/clang
-@@ -90,3 +89,0 @@
--# stop on warning
+@@ -88,7 +88,7 @@
+ fi
+
+ # stop on warning
 -CFLAGS="$CFLAGS -Werror"
--
++# CFLAGS="$CFLAGS -Werror"
+
+ # debug
+ CFLAGS="$CFLAGS -g"
 --- auto/cc/gcc
 +++ auto/cc/gcc
-@@ -168,3 +167,0 @@
--# stop on warning
+@@ -166,7 +166,7 @@
+
+
+ # stop on warning
 -CFLAGS="$CFLAGS -Werror"
--
++# CFLAGS="$CFLAGS -Werror"
+
+ # debug
+ CFLAGS="$CFLAGS -g"
 --- auto/cc/icc
 +++ auto/cc/icc
-@@ -113,3 +112,0 @@
--# stop on warning
--CFLAGS="$CFLAGS -Werror"
--
+@@ -111,7 +111,7 @@
+ esac
+
+ # stop on warning
+-# CFLAGS="$CFLAGS -Werror"
++CFLAGS="$CFLAGS -Werror"
+
+ # debug
+ CFLAGS="$CFLAGS -g"
 --- src/mp4-h264/src/ngx_http_streaming_module.c
 +++ src/mp4-h264/src/ngx_http_streaming_module.c
 @@ -157,6 +156,0 @@
