@@ -113,40 +113,11 @@ git clone --depth 1 https://github.com/kaltura/nginx-vod-module.git ./build/$VER
 git clone --depth 1 https://github.com/tg123/websockify-nginx-module.git ./build/$VERSION_NGINX/src/websockify
 git clone --depth 1 https://github.com/yoreek/nginx-xsltproc-module.git ./build/$VERSION_NGINX/src/xsltproc
 
-cd build/$VERSION_NGINX && patch -p0 << EOF
---- auto/cc/clang
-+++ auto/cc/clang
-@@ -88,7 +88,7 @@
- fi
-
- # stop on warning
--CFLAGS="$CFLAGS -Werror"
-+# CFLAGS="$CFLAGS -Werror"
-
- # debug
- CFLAGS="$CFLAGS -g"
---- auto/cc/gcc
-+++ auto/cc/gcc
-@@ -166,7 +166,7 @@
-
-
- # stop on warning
--CFLAGS="$CFLAGS -Werror"
-+# CFLAGS="$CFLAGS -Werror"
-
- # debug
- CFLAGS="$CFLAGS -g"
---- auto/cc/icc
-+++ auto/cc/icc
-@@ -111,7 +111,7 @@
- esac
-
- # stop on warning
--# CFLAGS="$CFLAGS -Werror"
-+CFLAGS="$CFLAGS -Werror"
-
- # debug
- CFLAGS="$CFLAGS -g"
+cd build/$VERSION_NGINX && \
+sed -i "/Werror/d" auto/cc/clang && \
+sed -i "/Werror/d" auto/cc/gcc && \
+sed -i "/Werror/d" auto/cc/icc && \
+patch -p0 << EOF
 --- src/mp4-h264/src/ngx_http_streaming_module.c
 +++ src/mp4-h264/src/ngx_http_streaming_module.c
 @@ -157,6 +156,0 @@
