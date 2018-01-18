@@ -113,6 +113,37 @@ git clone --depth 1 https://github.com/kaltura/nginx-vod-module.git ./build/$VER
 git clone --depth 1 https://github.com/tg123/websockify-nginx-module.git ./build/$VERSION_NGINX/src/websockify
 git clone --depth 1 https://github.com/yoreek/nginx-xsltproc-module.git ./build/$VERSION_NGINX/src/xsltproc
 
+cd build/$VERSION_NGINX && patch -p0 << EOF
+--- auto/cc/clang
++++ auto/cc/clang
+@@ -90,3 +89,0 @@
+-# stop on warning
+-CFLAGS="$CFLAGS -Werror"
+-
+--- auto/cc/gcc
++++ auto/cc/gcc
+@@ -168,3 +167,0 @@
+-# stop on warning
+-CFLAGS="$CFLAGS -Werror"
+-
+--- auto/cc/icc
++++ auto/cc/icc
+@@ -113,3 +112,0 @@
+-# stop on warning
+-CFLAGS="$CFLAGS -Werror"
+-
+--- src/mp4-h264/src/ngx_http_streaming_module.c
++++ src/mp4-h264/src/ngx_http_streaming_module.c
+@@ -157,6 +156,0 @@
+-  /* TODO: Win32 */
+-  if (r->zero_in_uri)
+-  {
+-    return NGX_DECLINED;
+-  }
+-
+EOF
+cd ../..
+
 # Rename the existing /etc/nginx directory so it's saved as a back-up
 if [ -d "/etc/nginx" ]; then
   mv /etc/nginx /etc/nginx-$today
